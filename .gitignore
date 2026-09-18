@@ -1,0 +1,6 @@
+VynoxAndroid/build/
+VynoxAndroid/platform34/
+VynoxAndroid/platform-34.zip
+VynoxAndroid/vynox.keystore
+*.apk
+*.idsig
