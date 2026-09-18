@@ -1,119 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Vynox</title>
 <style>
 *{box-sizing:border-box}
-:root{--bg:#090b10;--card:#151923;--card2:#1c212c;--text:#f5f6fa;--muted:#9da5b4;--accent:#36d1dc;--line:#2a3140}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{height:66px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:20;
-background:#11131a;border-bottom:1px solid #252b36;font-size:24px;font-weight:800}
-.menuBtn{position:absolute;right:14px;border:0;background:#242a35;color:white;width:44px;height:44px;border-radius:50%;font-size:24px}
-.topbar{display:flex;gap:9px;overflow:auto;padding:12px 14px 10px;background:var(--bg)}
-.chip{white-space:nowrap;padding:10px 15px;border-radius:22px;background:#171b24;color:#aeb5c2;font-size:14px}
-.chip.active{background:#2a2f39;color:white}
-.menu{display:none;position:fixed;right:12px;top:59px;width:235px;background:#171a21;border:1px solid #303642;border-radius:16px;padding:8px;z-index:50;box-shadow:0 12px 35px #000}
-.menu.show{display:block}.menu button{width:100%;border:0;background:none;color:white;text-align:left;padding:14px;border-radius:10px;font-size:15px}.menu button:hover{background:#272d38}
-.content{padding:4px 14px 90px}
-.titleRow{display:flex;align-items:center;justify-content:space-between;margin:12px 2px 10px}
-.titleRow h2{font-size:19px;margin:0}.count{color:var(--muted);font-size:13px}
-.recent{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
-.thumb{height:115px;border-radius:13px;overflow:hidden;background:linear-gradient(135deg,#26364c,#10151d);position:relative;border:1px solid #2a3140}
-.thumb img{width:100%;height:100%;object-fit:cover}.thumb .shade{position:absolute;inset:0;background:linear-gradient(transparent 45%,#000b)}
-.thumb span{position:absolute;bottom:8px;left:9px;right:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
-.empty{grid-column:1/-1;padding:25px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:var(--muted);text-align:center}
-.folders{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.folder{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;min-height:82px}
-.folder .ico{font-size:27px}.folder b{display:block;margin-top:7px;font-size:15px}.folder span{color:var(--muted);font-size:12px}
-.bottom{position:fixed;bottom:0;left:0;right:0;height:70px;background:#11151f;border-top:1px solid #292f3a;display:flex;z-index:30}
-.bottom button{flex:1;border:0;background:none;color:#8e97a7;font-size:13px}.bottom button div{font-size:22px;margin-bottom:3px}.bottom button.active{color:var(--accent)}
-.playerPage{display:none;position:fixed;inset:0;background:#080a0f;z-index:100;overflow:auto}
-.playerPage.show{display:block}.playerTop{height:58px;display:flex;align-items:center;padding:0 14px;gap:14px;background:#11131a}
-.back{border:0;background:#242a35;color:white;border-radius:50%;width:38px;height:38px;font-size:20px}.playerTop span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.videoBox{background:#000}.videoBox video{display:block;width:100%;max-height:52vh;background:#000}
-.pInfo{padding:13px 15px}.pInfo b{font-size:15px}.progress{width:100%;margin-top:12px;accent-color:var(--accent)}
-.times{display:flex;justify-content:space-between;color:#929baa;font-size:12px;margin-top:3px}
-.controls{display:flex;justify-content:center;gap:8px;padding:13px 10px;flex-wrap:wrap}.controls button{border:0;background:#202632;color:white;border-radius:12px;padding:13px 16px;font-size:14px}.controls .play{background:linear-gradient(135deg,#36d1dc,#5b5df0);font-size:18px}
-.sheet{position:fixed;left:0;right:0;bottom:0;background:#151922;border-radius:20px 20px 0 0;padding:20px;z-index:60;border:1px solid #303744}
-.sheet h2{margin:0 0 12px}.option{padding:14px;background:#202632;border-radius:11px;margin:8px 0}.premium{background:linear-gradient(135deg,#30205c,#153e66);border:1px solid #7658d9}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:55}.modal.show{display:block}
-.close{float:right;background:none;border:0;color:white;font-size:22px}
-@media(min-width:600px){.content{max-width:720px;margin:auto}.recent{grid-template-columns:repeat(3,1fr)}.folders{grid-template-columns:repeat(3,1fr)}}
+html,body{margin:0;height:100%;background:#020a12;color:#f4f6fa;font-family:Arial,Roboto,sans-serif}
+body{overflow:hidden}
+.app{height:100vh;display:flex;flex-direction:column;background:radial-gradient(circle at 15% 15%,rgba(0,140,255,.08),transparent 30%),#020a12}
+.status{height:29px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}
+.status .right{font-size:10px}
+.header{height:65px;padding:2px 14px 4px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;flex-direction:column;align-items:flex-start}
+.logo{font-size:34px;line-height:34px;font-weight:900;letter-spacing:-1.8px}
+.logo .v{color:#079dff}.logo .rest{color:#f4f6fa}
+.tagline{font-size:15px;line-height:18px;color:#aeb8c5;font-weight:700;letter-spacing:-.25px}
+.actions{display:flex;align-items:center;gap:17px;padding-top:1px}
+.action{font-size:24px;font-weight:800;color:#f1f4f8}
+.cc{font-size:12px;border:2px solid #f1f4f8;border-radius:3px;padding:2px 3px;font-weight:900}
+.search{height:38px;margin:0 13px 9px;border-radius:20px;border:1px solid #26394a;background:#111e2a;display:flex;align-items:center;padding:0 13px;color:#8997a7;font-size:14px;font-weight:600}
+.search .glass{font-size:21px;margin-right:8px;color:#c8d2dc}
+.chips{display:flex;gap:6px;padding:0 10px 11px;justify-content:space-between;overflow:hidden}
+.chip{height:38px;padding:0 11px;border-radius:20px;flex:1 1 0;min-width:0;border:1.5px solid #168bd5;background:#07131e;color:#eef2f7;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-size:13px;font-weight:800}
+.chip.active{background:#079df8;color:#fff;box-shadow:0 0 12px rgba(0,157,248,.35)}
+.content{flex:1;overflow:hidden}
+.section{padding:0 13px}
+.head{height:33px;display:flex;align-items:center;justify-content:space-between}
+.heading{font-size:20px;font-weight:900;letter-spacing:-.55px}
+.more{font-size:12px;color:#16a5ff;font-weight:800}
+.row{display:flex;gap:10px;overflow:hidden}
+.card{flex:0 0 26.8%;border-radius:9px;overflow:hidden;border:1px solid #193246;background:#08141e}
+.poster{height:116px;position:relative;display:flex;align-items:flex-end;padding:7px;background:#111}
+.bat{background:linear-gradient(145deg,#ff9d45,#8b2718 50%,#18121b)}
+.wick{background:linear-gradient(145deg,#23425d,#111820 55%,#4d4032)}
+.ava{background:linear-gradient(145deg,#36c8f2,#164c7b 50%,#08151e)}
+.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.7))}
+.pname{position:relative;z-index:2;font-size:10px;font-weight:900}
+.duration{position:absolute;z-index:3;bottom:6px;right:6px;font-size:8px;color:#fff;font-weight:700}
+.ctitle{font-size:10px;font-weight:900;padding:6px 6px 1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmeta{font-size:9px;color:#929eaa;padding:0 6px 7px;font-weight:600}
+.foldersec{margin-top:12px}
+.folders{display:flex;gap:10px;overflow:hidden}
+.folder{flex:0 0 23.2%;height:126px;border-radius:10px;border:1.5px solid #158bd4;overflow:hidden;background:#071522;display:flex;flex-direction:column}
+.folder:nth-child(1){border-color:#d77d18;background:linear-gradient(145deg,#5b3216,#17100c)}
+.folder:nth-child(2){border-color:#bc40d8;background:linear-gradient(145deg,#50125f,#16091e)}
+.folder:nth-child(3){border-color:#087fe0;background:linear-gradient(145deg,#0b3760,#061424)}
+.foldericon{height:78px;display:flex;align-items:center;justify-content:center;font-size:42px;color:#20b1ff;text-shadow:0 0 12px rgba(0,170,255,.4)}
+.folder:nth-child(1) .foldericon{color:#ffd36c}.folder:nth-child(2) .foldericon{color:#e36cff}
+.fname{text-align:center;font-size:15px;font-weight:900;line-height:17px}
+.fcount{text-align:center;font-size:13px;color:#aeb8c5;font-weight:700;margin-top:2px}
+.bottom{height:78px;flex-shrink:0;border-top:1px solid #173044;background:#03101a;display:flex;align-items:center;justify-content:space-around;padding-bottom:3px}
+.nav{width:25%;display:flex;flex-direction:column;align-items:center;gap:4px;color:#9aa7b4;font-size:11px;font-weight:800}
+.navicon{font-size:27px;line-height:25px}
+.nav.active{color:#09a2ff;text-shadow:0 0 8px rgba(0,162,255,.4)}
 </style>
+
+<style id="b18-four-items">
+.row,.folders{width:100%;display:flex;flex-wrap:nowrap;overflow:hidden}
+.card,.folder{flex-shrink:0}
+</style>
+
 </head>
 <body>
-<header>Vynox<button class="menuBtn" onclick="toggleMenu()">☰</button></header>
+<div class="app">
+  <div class="status"><span>4:43</span><span class="right">▮▮▮　WiFi　▰ 58%</span></div>
 
-<div class="topbar">
-<div class="chip active">Todos los videos</div>
-<div class="chip">Descargas</div>
-<div class="chip">Privacidad</div>
+  <header class="header">
+    <div class="brand">
+      <div class="logo"><span class="v">V</span><span class="rest">ynox</span></div>
+      <div class="tagline">Reproduce tu mundo</div>
+    </div>
+    <div class="actions">
+      <span class="cc">CC</span>
+      <span class="action">▣</span>
+      <span class="action">⋮</span>
+    </div>
+  </header>
+
+  <div class="search"><span class="glass">⌕</span><span>Buscar videos...</span></div>
+
+  <div class="chips">
+    <div class="chip active">Todos</div>
+    <div class="chip">Películas</div>
+    <div class="chip">Series</div>
+    <div class="chip">Carpetas</div>
+  </div>
+
+  <main class="content">
+    <section class="section">
+      <div class="head"><div class="heading">Últimos reproducidos</div><div class="more">Ver todos ›</div></div>
+      <div class="row">
+        <div class="card"><div class="poster bat"><span class="pname">The Batman 2022</span><span class="duration">2:56:24</span></div><div class="ctitle">The Batman 2022</div><div class="cmeta">2:56:24</div></div>
+        <div class="card"><div class="poster wick"><span class="pname">John Wick 4</span><span class="duration">2:49:03</span></div><div class="ctitle">John Wick 4</div><div class="cmeta">2:49:03</div></div>
+        <div class="card"><div class="poster ava"><span class="pname">Avatar</span><span class="duration">3:12:16</span></div><div class="ctitle">Avatar</div><div class="cmeta">3:12:16</div></div>
+        <div class="card"><div class="poster" style="background:linear-gradient(145deg,#b21f3a,#35142d 55%,#080f18)"><span class="pname">Spider-Man</span><span class="duration">2:28:17</span></div><div class="ctitle">Spider-Man</div><div class="cmeta">2:28:17</div></div>
+      </div>
+    </section>
+
+    <section class="section foldersec">
+      <div class="head"><div class="heading">Carpetas</div><div class="more">Ver todas ›</div></div>
+      <div class="folders">
+        <div class="folder"><div class="foldericon">◉</div><div class="fname">Películas</div><div class="fcount">248</div></div>
+        <div class="folder"><div class="foldericon">▣</div><div class="fname">Series</div><div class="fcount">86</div></div>
+        <div class="folder"><div class="foldericon">■</div><div class="fname">Carpetas</div><div class="fcount">120</div></div>
+        <div class="folder"><div class="foldericon" style="color:#39d98a">▣</div><div class="fname">Cámara</div><div class="fcount">57</div></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom">
+    <div class="nav active"><div class="navicon">⌂</div><div>Inicio</div></div>
+    <div class="nav"><div class="navicon">♫</div><div>Música</div></div>
+    <div class="nav"><div class="navicon">□</div><div>Explorador</div></div>
+    <div class="nav"><div class="navicon">⚒</div><div>Herramientas</div></div>
+  </nav>
 </div>
-
-<div class="menu" id="menu">
-<button onclick="selectMode()">☑️ Seleccionar</button>
-<button onclick="showPremium()">👑 Premium</button>
-<button onclick="showTheme()">🎨 Tema</button>
-<button onclick="showSettings()">⚙️ Configuración</button>
-<button onclick="location.reload()">🔄 Actualizar</button>
-</div>
-
-<main class="content">
-<div class="titleRow"><h2>🕘 Recientes</h2><span class="count">4 videos</span></div>
-<div class="recent" id="recent">
-<div class="thumb" onclick="openPlayer()"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=70"><div class="shade"></div><span>1000663759.mp4</span></div>
-<div class="thumb"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=70"><div class="shade"></div><span>Video reciente</span></div>
-<div class="thumb"><img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=700&q=70"><div class="shade"></div><span>Grabación.mp4</span></div>
-<div class="empty">🎬 Abre un video para verlo aquí</div>
-</div>
-
-<div class="titleRow" style="margin-top:25px"><h2>📁 Carpetas</h2><span class="count">14 CARPETAS</span></div>
-<div class="folders">
-<div class="folder"><div class="ico">📂</div><b>Alarms</b><span>Videos</span></div>
-<div class="folder"><div class="ico">📂</div><b>Cámara</b><span>Videos</span></div>
-<div class="folder"><div class="ico">📂</div><b>DCIM</b><span>Videos</span></div>
-<div class="folder"><div class="ico">📂</div><b>Grabación</b><span>Videos</span></div>
-<div class="folder"><div class="ico">📂</div><b>Movies</b><span>Videos</span></div>
-<div class="folder"><div class="ico">📂</div><b>ScreenRecorder</b><span>Videos</span></div>
-</div>
-</main>
-
-<nav class="bottom">
-<button class="active"><div>🎬</div>Video</button>
-<button><div>🎵</div>Música</button>
-<button><div>📋</div>Lista de reproducción</button>
-</nav>
-
-<div class="playerPage" id="playerPage">
-<div class="playerTop"><button class="back" onclick="closePlayer()">‹</button><span id="playerName">1000663759.mp4</span></div>
-<div class="videoBox"><video id="video" controls playsinline></video></div>
-<div class="pInfo"><b id="name">1000663759.mp4</b><input class="progress" id="progress" type="range" min="0" max="100" value="0"><div class="times"><span id="current">00:00</span><span id="duration">00:00</span></div></div>
-<div class="controls"><button onclick="backward()">⏪ 10s</button><button class="play" onclick="togglePlay()">▶️</button><button onclick="forward()">10s ⏩</button><button onclick="fullscreen()">⛶</button></div>
-</div>
-
-<div class="modal" id="modal"><div class="sheet"><button class="close" onclick="closeModal()">✕</button><div id="modalContent"></div></div></div>
-
-<script>
-const video=document.getElementById('video'),progress=document.getElementById('progress');
-function toggleMenu(){document.getElementById('menu').classList.toggle('show')}
-function openPlayer(){document.getElementById('playerPage').classList.add('show')}
-function closePlayer(){video.pause();document.getElementById('playerPage').classList.remove('show')}
-function togglePlay(){if(video.paused)video.play();else video.pause()}
-function backward(){video.currentTime=Math.max(0,video.currentTime-10)}
-function forward(){video.currentTime=Math.min(video.duration||0,video.currentTime+10)}
-function fullscreen(){if(video.requestFullscreen)video.requestFullscreen()}
-function fmt(s){if(!isFinite(s))return'00:00';s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-video.ontimeupdate=()=>{progress.value=video.duration?video.currentTime/video.duration*100:0;document.getElementById('current').textContent=fmt(video.currentTime)}
-video.onloadedmetadata=()=>document.getElementById('duration').textContent=fmt(video.duration)
-progress.oninput=()=>{if(video.duration)video.currentTime=progress.value/100*video.duration}
-function selectMode(){toggleMenu();alert('Modo selección listo para una próxima versión.')}
-function showPremium(){openModal('<h2>👑 Vynox Premium</h2><div class="option premium"><b>Más temas y colores</b><br>Personaliza la apariencia.</div><div class="option">🚫 Sin anuncios</div><div class="option">🔊 Ecualizador avanzado</div><div class="option">🔒 Carpeta privada</div>')}
-function showTheme(){openModal('<h2>🎨 Tema</h2><div class="option">🌌 Vynox</div><div class="option">🌑 Oscuro</div><div class="option premium">👑 Temas Premium</div>')}
-function showSettings(){openModal('<h2>⚙️ Configuración</h2><div class="option">🎬 Video</div><div class="option">🎵 Música</div><div class="option">💬 Subtítulos</div><div class="option">▶️ Reproducción</div>')}
-function openModal(x){document.getElementById('modalContent').innerHTML=x;document.getElementById('modal').classList.add('show');document.getElementById('menu').classList.remove('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-</script>
 </body>
 </html>
