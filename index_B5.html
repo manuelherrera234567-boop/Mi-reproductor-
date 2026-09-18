@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vynox</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #080b12;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold; background: linear-gradient(90deg, #071a2b, #21104a); border-bottom: 1px solid #293a70;
+}
+
+.player {
+    width: 100%;
+    background: #000;
+}
+
+video {
+    width: 100%;
+    max-height: 65vh;
+    display: block;
+    background: #000;
+}
+
+.info {
+    padding: 12px 16px;
+}
+
+#fileName {
+    color: #ddd;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.controls {
+    padding: 10px 16px 20px;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+button,
+.fileButton {
+    border: none;
+    background: #252525;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.play {
+    font-size: 20px;
+    padding: 14px 20px;
+}
+
+.fileButton {
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    width: 90%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Vynox</header>
+
+<div class="player">
+    <video id="video"></video>
+</div>
+
+<div class="info">
+    <div id="fileName">Ningún video seleccionado</div>
+</div>
+
+<label class="fileButton" for="fileInput">
+    📁 Abrir video
+</label>
+
+<input id="fileInput" type="file" accept="video/*">
+
+<div class="controls">
+
+    <input id="progress" type="range" min="0" max="100" value="0">
+
+    <div class="time">
+        <span id="current">00:00</span>
+        <span id="duration">00:00</span>
+    </div>
+
+    <div class="buttons">
+        <button onclick="backward()">⏪ 10s</button>
+
+        <button class="play" onclick="togglePlay()" id="playButton">
+            ▶️
+        </button>
+
+        <button onclick="forward()">10s ⏩</button>
+
+        <button onclick="fullscreen()">⛶</button>
+    </div>
+
+</div>
+
+<script>
+
+const video = document.getElementById("video");
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("fileName");
+const progress = document.getElementById("progress");
+const current = document.getElementById("current");
+const duration = document.getElementById("duration");
+const playButton = document.getElementById("playButton");
+
+fileInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    video.src = URL.createObjectURL(file);
+    fileName.textContent = file.name;
+
+    video.load();
+});
+
+function togglePlay() {
+
+    if (video.paused) {
+        video.play();
+        playButton.textContent = "⏸️";
+    } else {
+        video.pause();
+        playButton.textContent = "▶️";
+    }
+}
+
+function backward() {
+    video.currentTime = Math.max(0, video.currentTime - 10);
+}
+
+function forward() {
+    video.currentTime = Math.min(
+        video.duration,
+        video.currentTime + 10
+    );
+}
+
+function fullscreen() {
+
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    }
+}
+
+video.addEventListener("timeupdate", function() {
+
+    if (!video.duration) return;
+
+    progress.value =
+        (video.currentTime / video.duration) * 100;
+
+    current.textContent =
+        formatTime(video.currentTime);
+
+    duration.textContent =
+        formatTime(video.duration);
+});
+
+progress.addEventListener("input", function() {
+
+    if (!video.duration) return;
+
+    video.currentTime =
+        (progress.value / 100) * video.duration;
+});
+
+video.addEventListener("play", function() {
+    playButton.textContent = "⏸️";
+});
+
+video.addEventListener("pause", function() {
+    playButton.textContent = "▶️";
+});
+
+function formatTime(seconds) {
+
+    if (!seconds || isNaN(seconds)) {
+        return "00:00";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    return String(minutes).padStart(2, "0")
+        + ":" +
+        String(secs).padStart(2, "0");
+}
+
+</script>
+
+</body>
+</html>
+
+
