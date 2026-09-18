@@ -4,3 +4,6 @@ VynoxAndroid/platform-34.zip
 VynoxAndroid/vynox.keystore
 *.apk
 *.idsig
+
+.gradle/
+VynoxAndroid/.gradle/
